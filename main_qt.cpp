@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QFileDialog>
 #include <QTextEdit>
+#include <QGraphicsView>
+#include <QGraphicsScene>
 #include <QMediaPlayer>
 #include <QString>
 #include <string>
@@ -24,12 +26,17 @@ int main(int argc, char *argv[]) {
     QTextEdit *output = new QTextEdit();
     output->setReadOnly(true);
 
+    // Zone graphique pour la tablature
+    QGraphicsView *tabView = new QGraphicsView();
+    QGraphicsScene *scene = new QGraphicsScene();
+    tabView->setScene(scene);
+
     layout->addWidget(buttonImport);
     layout->addWidget(buttonPlay);
     layout->addWidget(output);
+    layout->addWidget(tabView);
 
     QMediaPlayer *player = new QMediaPlayer;
-
     QString fileName;
 
     QObject::connect(buttonImport, &QPushButton::clicked, [&]() {
@@ -37,6 +44,16 @@ int main(int argc, char *argv[]) {
         if (!fileName.isEmpty()) {
             std::string result = detect_notes(fileName.toStdString());
             output->setPlainText(QString::fromStdString(result));
+
+            // Exemple simplifié : afficher les notes sur une ligne horizontale
+            scene->clear();
+            int x = 0;
+            for (const auto &line : QString::fromStdString(result).split("\n")) {
+                if (line.contains("Temps")) {
+                    scene->addText(line)->setPos(x, 0);
+                    x += 120; // espacement horizontal
+                }
+            }
         }
     });
 
