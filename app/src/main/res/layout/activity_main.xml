@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="#F4F7FB">
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Detect Notes &amp; Chords"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#1E2A3A"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/descriptionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Analyse audio et reconnaissance de notes sur mobile"
+        android:textSize="16sp"
+        android:textColor="#5B6B7A"
+        android:layout_marginBottom="24dp"/>
+
+    <Button
+        android:id="@+id/analyzeButton"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="Analyser"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#3B82F6"
+        android:layout_marginBottom="20dp"/>
+
+    <TextView
+        android:id="@+id/statusText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Prête à analyser votre audio"
+        android:textSize="15sp"
+        android:textColor="#374151"
+        android:background="#FFFFFF"
+        android:padding="16dp"
+        android:lineSpacingExtra="4dp"/>
+
+</LinearLayout>

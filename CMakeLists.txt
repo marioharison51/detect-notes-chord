@@ -51,7 +51,7 @@ target_link_libraries(DetectNotesChord
 if(ANDROID)
     message(STATUS "Compilation pour Android détectée")
 
-    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
+    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Android")
     set(ANDROID_ABI "arm64-v8a")
     set(ANDROID_PLATFORM 33)
 
