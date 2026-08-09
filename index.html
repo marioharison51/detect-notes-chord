@@ -2,16 +2,72 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Notes & accords</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detect Notes & Chords</title>
   <style>
-    body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
-    h1 { color: #007acc; }
-    p { font-size: 18px; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #007acc, #00b4d8);
+      color: #fff;
+      text-align: center;
+    }
+    header {
+      background-color: rgba(0, 0, 0, 0.3);
+      padding: 20px;
+    }
+    h1 {
+      font-size: 2.5em;
+      margin: 0;
+    }
+    section {
+      padding: 40px 20px;
+    }
+    .button {
+      display: inline-block;
+      background-color: #fff;
+      color: #007acc;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .button:hover {
+      background-color: #007acc;
+      color: #fff;
+    }
+    footer {
+      background-color: rgba(0, 0, 0, 0.3);
+      padding: 10px;
+      font-size: 0.9em;
+    }
   </style>
 </head>
 <body>
-  <h1>🎵 Detect Notes & Chords</h1>
-  <p>Application pour détecter les notes et accords destinée pour les enfants</p>
-  <p>Code source disponible sur <a href="https://github.com/marioharison51/detect-notes-chord">GitHub</a>.</p>
+  <header>
+    <h1>🎵 Detect Notes & Chords</h1>
+    <p>Analyse audio et reconnaissance de notes et accords en C++</p>
+  </header>
+
+  <section>
+    <h2>À propos du projet</h2>
+    <p>Ce projet open‑source permet de détecter les notes musicales et les accords dans n’importe quel fichier audio grâce à une analyse spectrale FFT.</p>
+    <a href="https://github.com/marioharison51/detect-notes-chord" class="button">Voir le code sur GitHub</a>
+  </section>
+
+  <section>
+    <h2>Fonctionnalités</h2>
+    <ul style="list-style:none; padding:0;">
+      <li>🎧 Lecture de fichiers audio (WAV, MP3, FLAC)</li>
+      <li>🎼 Détection des fréquences dominantes</li>
+      <li>🎹 Reconnaissance des notes et accords</li>
+      <li>⚙️ Code optimisé en C++ avec FFTW et libsndfile</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>© 2026 Detect Notes & Chords — Projet créé par Ismaël</p>
+  </footer>
 </body>
 </html>
