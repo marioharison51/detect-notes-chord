@@ -7,8 +7,8 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
-# Trouver Qt6 pour l'interface graphique
-find_package(Qt6 COMPONENTS Widgets REQUIRED)
+# Trouver Qt6 pour l'interface graphique et multimédia
+find_package(Qt6 COMPONENTS Widgets Multimedia REQUIRED)
 
 # Inclure les bibliothèques audio
 find_package(FFTW3 REQUIRED)
@@ -23,6 +23,7 @@ add_executable(DetectNotesChord
 # Lier les bibliothèques nécessaires
 target_link_libraries(DetectNotesChord
     Qt6::Widgets
+    Qt6::Multimedia
     fftw3
     sndfile
 )
