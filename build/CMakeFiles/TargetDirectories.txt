@@ -1,0 +1,5 @@
+/workspaces/detect-notes-chord/build/CMakeFiles/DetectNotesChord.dir
+/workspaces/detect-notes-chord/build/CMakeFiles/edit_cache.dir
+/workspaces/detect-notes-chord/build/CMakeFiles/rebuild_cache.dir
+/workspaces/detect-notes-chord/build/CMakeFiles/DetectNotesChord_autogen_timestamp_deps.dir
+/workspaces/detect-notes-chord/build/CMakeFiles/DetectNotesChord_autogen.dir

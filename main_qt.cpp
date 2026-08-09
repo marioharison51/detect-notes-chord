@@ -6,6 +6,7 @@
 #include <QTextEdit>
 #include <QGraphicsView>
 #include <QGraphicsScene>
+#include <QGraphicsTextItem>
 #include <QMediaPlayer>
 #include <QString>
 #include <string>

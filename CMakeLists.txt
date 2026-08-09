@@ -21,20 +21,30 @@ else()
 endif()
 
 # Inclure les bibliothèques audio
-find_package(SndFile REQUIRED)
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(PC_SNDFILE REQUIRED sndfile)
+
+find_path(SNDFILE_INCLUDE_DIR sndfile.h HINTS ${PC_SNDFILE_INCLUDE_DIRS})
+find_library(SNDFILE_LIBRARY NAMES sndfile HINTS ${PC_SNDFILE_LIBRARY_DIRS})
+
+if(NOT SNDFILE_INCLUDE_DIR OR NOT SNDFILE_LIBRARY)
+    message(FATAL_ERROR "❌ libsndfile introuvable. Installe-le avec 'sudo apt install libsndfile1-dev'")
+endif()
 
 # Définir les fichiers sources
 add_executable(DetectNotesChord
     main_qt.cpp
-    detection_notes.cpp
+    detect_notes.cpp
 )
+
+target_include_directories(DetectNotesChord PRIVATE ${SNDFILE_INCLUDE_DIR})
 
 # Lier les bibliothèques nécessaires
 target_link_libraries(DetectNotesChord
     Qt6::Widgets
     Qt6::Multimedia
     ${FFTW3_LIBRARY}
-    sndfile
+    ${SNDFILE_LIBRARY}
 )
 
 # --- Configuration Android ---
