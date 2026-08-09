@@ -10,8 +10,17 @@ set(CMAKE_AUTORCC ON)
 # Trouver Qt6 pour l'interface graphique et multimédia
 find_package(Qt6 COMPONENTS Widgets Multimedia REQUIRED)
 
+# --- FFTW3 : ajout manuel du chemin ---
+find_path(FFTW3_INCLUDE_DIR fftw3.h)
+find_library(FFTW3_LIBRARY NAMES fftw3)
+
+if(FFTW3_INCLUDE_DIR AND FFTW3_LIBRARY)
+    message(STATUS "FFTW3 trouvé : ${FFTW3_LIBRARY}")
+else()
+    message(FATAL_ERROR "FFTW3 non trouvé. Vérifie l'installation avec 'sudo apt install libfftw3-dev'")
+endif()
+
 # Inclure les bibliothèques audio
-find_package(FFTW3 REQUIRED)
 find_package(SndFile REQUIRED)
 
 # Définir les fichiers sources
@@ -24,7 +33,7 @@ add_executable(DetectNotesChord
 target_link_libraries(DetectNotesChord
     Qt6::Widgets
     Qt6::Multimedia
-    fftw3
+    ${FFTW3_LIBRARY}
     sndfile
 )
 
