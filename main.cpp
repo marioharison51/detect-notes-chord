@@ -4,6 +4,7 @@
 #include <string>
 #include <sndfile.h>
 #include <fftw3.h>
+#include <algorithm>
 
 #define BUFFER_SIZE 4096
 #define SAMPLE_RATE 44100
@@ -28,12 +29,68 @@ std::string map_to_note(double freq) {
     return "Note inconnue";
 }
 
-// Détection d’accords simples
+// Structure d’accord
+struct Chord {
+    std::string name;
+    std::vector<std::string> notes;
+};
+
+// Table des accords (majeurs, mineurs, 7, m7, sus4, 6, m6, dim, aug)
+std::vector<Chord> chordTable = {
+    {"C majeur", {"C", "E", "G"}}, {"C mineur", {"C", "D#", "G"}},
+    {"C7", {"C", "E", "G", "A#"}}, {"Cm7", {"C", "D#", "G", "A#"}},
+    {"Csus4", {"C", "F", "G"}}, {"C6", {"C", "E", "G", "A"}},
+    {"Cm6", {"C", "D#", "G", "A"}}, {"Cdim", {"C", "D#", "F#"}},
+    {"Caug", {"C", "E", "G#"}},
+
+    {"D majeur", {"D", "F#", "A"}}, {"D mineur", {"D", "F", "A"}},
+    {"D7", {"D", "F#", "A", "C"}}, {"Dm7", {"D", "F", "A", "C"}},
+    {"Dsus4", {"D", "G", "A"}}, {"D6", {"D", "F#", "A", "B"}},
+    {"Dm6", {"D", "F", "A", "B"}}, {"Ddim", {"D", "F", "G#"}},
+    {"Daug", {"D", "F#", "A#"}},
+
+    {"E majeur", {"E", "G#", "B"}}, {"E mineur", {"E", "G", "B"}},
+    {"E7", {"E", "G#", "B", "D"}}, {"Em7", {"E", "G", "B", "D"}},
+    {"Esus4", {"E", "A", "B"}}, {"E6", {"E", "G#", "B", "C#"}},
+    {"Em6", {"E", "G", "B", "C#"}}, {"Edim", {"E", "G", "A#"}},
+    {"Eaug", {"E", "G#", "C"}},
+
+    {"F majeur", {"F", "A", "C"}}, {"F mineur", {"F", "G#", "C"}},
+    {"F7", {"F", "A", "C", "D#"}}, {"Fm7", {"F", "G#", "C", "D#"}},
+    {"Fsus4", {"F", "A#", "C"}}, {"F6", {"F", "A", "C", "D"}},
+    {"Fm6", {"F", "G#", "C", "D"}}, {"Fdim", {"F", "G#", "B"}},
+    {"Faug", {"F", "A", "C#"}},
+
+    {"G majeur", {"G", "B", "D"}}, {"G mineur", {"G", "A#", "D"}},
+    {"G7", {"G", "B", "D", "F"}}, {"Gm7", {"G", "A#", "D", "F"}},
+    {"Gsus4", {"G", "C", "D"}}, {"G6", {"G", "B", "D", "E"}},
+    {"Gm6", {"G", "A#", "D", "E"}}, {"Gdim", {"G", "A#", "C#"}},
+    {"Gaug", {"G", "B", "D#"}},
+
+    {"A majeur", {"A", "C#", "E"}}, {"A mineur", {"A", "C", "E"}},
+    {"A7", {"A", "C#", "E", "G"}}, {"Am7", {"A", "C", "E", "G"}},
+    {"Asus4", {"A", "D", "E"}}, {"A6", {"A", "C#", "E", "F#"}},
+    {"Am6", {"A", "C", "E", "F#"}}, {"Adim", {"A", "C", "D#"}},
+    {"Aaug", {"A", "C#", "F"}},
+
+    {"B majeur", {"B", "D#", "F#"}}, {"B mineur", {"B", "D", "F#"}},
+    {"B7", {"B", "D#", "F#", "A"}}, {"Bm7", {"B", "D", "F#", "A"}},
+    {"Bsus4", {"B", "E", "F#"}}, {"B6", {"B", "D#", "F#", "G#"}},
+    {"Bm6", {"B", "D", "F#", "G#"}}, {"Bdim", {"B", "D", "F"}},
+    {"Baug", {"B", "D#", "G"}}
+};
+
+// Fonction de détection
 std::string detect_chord(const std::vector<std::string>& notes) {
-    if (notes.size() >= 3) {
-        if (notes[0] == "C" && notes[1] == "E" && notes[2] == "G") return "C majeur";
-        if (notes[0] == "A" && notes[1] == "C" && notes[2] == "E") return "A mineur";
-        if (notes[0] == "G" && notes[1] == "B" && notes[2] == "D") return "G majeur";
+    for (auto& chord : chordTable) {
+        bool match = true;
+        for (auto& n : chord.notes) {
+            if (std::find(notes.begin(), notes.end(), n) == notes.end()) {
+                match = false;
+                break;
+            }
+        }
+        if (match) return chord.name;
     }
     return "Accord inconnu";
 }
